@@ -2,3 +2,31 @@ from tkinter import *
 import random
 from PIL import ImageTk, Image
 
+window = Tk()
+
+window.title("Main Window")
+
+window.geometry("250x250")
+
+# window.configure(background='grey')
+
+window.state('zoomed')
+
+# canvas = Canvas(window, width=300, height=300)
+# 
+# canvas.pack()
+# 
+# points = [100, 50, 200, 50, 250, 100, 250, 200, 200, 250, 100, 250, 50, 200 ,50, 100]
+# 
+# canvas.create_polygon(points, fill='#CD2626', outline='black', width=3)
+
+
+mainFrame = Frame(window, width=1000, height=1500, highlightbackground='black', highlightthickness=20, background='#1E1E1E')
+
+mainFrame.pack(padx=5, pady=5)
+
+mFLabel = Label(mainFrame, text="Choose A Car", font=("Courier New", 25, "bold"), bg="#1E1E1E", fg='white')
+
+mFLabel.place(relx=0.73, rely=0.05, relwidth=0.5, anchor='ne')
+
+window.mainloop()
