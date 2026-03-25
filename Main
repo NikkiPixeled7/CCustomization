@@ -1,5 +1,5 @@
 from tkinter import *
-import random
+import random, os, sys, time
 from PIL import ImageTk, Image
 
 window = Tk()
@@ -12,21 +12,79 @@ window.geometry("250x250")
 
 window.state('zoomed')
 
-# canvas = Canvas(window, width=300, height=300)
-# 
-# canvas.pack()
-# 
-# points = [100, 50, 200, 50, 250, 100, 250, 200, 200, 250, 100, 250, 50, 200 ,50, 100]
-# 
-# canvas.create_polygon(points, fill='#CD2626', outline='black', width=3)
 
+########### Intro Screen ###########
+
+def quitGUI():
+    print("User Pressed Quit..")
+    time.sleep(1)
+    sys.exit(0)
 
 mainFrame = Frame(window, width=1000, height=1500, highlightbackground='black', highlightthickness=20, background='#1E1E1E')
 
 mainFrame.pack(padx=5, pady=5)
 
+mainFrame.pack_propagate(False)
+
+## octagon
+canvas = Canvas(mainFrame, width=300, height=300, bg="#1E1E1E", highlightthickness=0)
+
+canvas.place(relx=0.02, rely=0.02, anchor='nw')
+
+points = [33.3, 16.7, 66.7, 16.7, 83.3, 33.3, 83.3, 66.7, 66.7, 83.3, 33.3, 83.3, 16.7, 66.7, 16.7, 33.3]
+
+octagon = canvas.create_polygon(points, fill='#CD2626', outline='black', width=3)
+
+def clicked(event):
+    quitGUI()
+
+canvas.tag_bind(octagon, "<Button-1>", clicked)
+
+canvas.move(octagon, 0, 0)
+
+quitLabel = Label(mainFrame, text="QUIT", font=("Courier New", 15, "bold"), fg='white', bg='#CD2626')
+
+quitLabel.place(relx=0.0435,rely=0.075, anchor='nw')
+
+quitLabel.bind("<Button-1>", clicked)
+## end octagon
+
 mFLabel = Label(mainFrame, text="Choose A Car", font=("Courier New", 25, "bold"), bg="#1E1E1E", fg='white')
 
 mFLabel.place(relx=0.73, rely=0.05, relwidth=0.5, anchor='ne')
+
+# Old Quit Button, use for other button code
+# button = Button(mainFrame, text="Quit",bg='red',fg='white', command=quitGUI)
+# button.place(relx=0.05, rely=0.06, anchor='nw')
+
+def roundedEdges(x1, y1, x2, y2, r=20, **kwargs):
+    points = [
+        x1 + r, y1,
+        x2 - r, y1,
+        x2, y1, x2, y1 + r,
+        x2, y2 - r,
+        x2, y2, x2 - r, y2,
+        x1 + r, y2,
+        x1, y2, x1, y2 - r,
+        x1, y1 + r,
+        x1, y1
+    ]
+    return canvas.create_polygon(points, smooth=True, **kwargs)
+
+
+#
+# frameOpt1 = roundedEdges(50, 50, 350, 250, r=30, fill='#2A2A2A')
+
+frameOpt1 = Frame(mainFrame, width=150, height=500, highlightthickness=0, background='#2A2A2A')
+#
+# frameOpt2 = Frame(mainFrame, width=150, height=500, highlightthickness=0, background='#2A2A2A')
+#
+# frameOpt3 = Frame(mainFrame, width=300, height=450, highlightthickness=0, background='#2A2A2A')
+#
+# frameOpt3.pack()
+# frameOpt1.pack()
+# frameOpt2.pack()
+
+########### End of First Screen ###########
 
 window.mainloop()
