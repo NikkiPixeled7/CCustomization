@@ -8,7 +8,7 @@ window.title("Main Window")
 
 window.geometry("250x250")
 
-# window.configure(background='grey')
+window.configure(background='grey')
 
 window.state('zoomed')
 
@@ -57,33 +57,58 @@ mFLabel.place(relx=0.73, rely=0.05, relwidth=0.5, anchor='ne')
 # button = Button(mainFrame, text="Quit",bg='red',fg='white', command=quitGUI)
 # button.place(relx=0.05, rely=0.06, anchor='nw')
 
-def roundedEdges(x1, y1, x2, y2, r=20, **kwargs):
-    points = [
-        x1 + r, y1,
-        x2 - r, y1,
-        x2, y1, x2, y1 + r,
-        x2, y2 - r,
-        x2, y2, x2 - r, y2,
-        x1 + r, y2,
-        x1, y2, x1, y2 - r,
-        x1, y1 + r,
-        x1, y1
-    ]
-    return canvas.create_polygon(points, smooth=True, **kwargs)
+pointsPentagon = [
+    61, 100,  # top-left
+    336, 100,  # top-right
+    336, 200,  # bottom-right
+    61, 200
+]
+
+canvasP = Canvas(mainFrame, width=400, height=150, bg='#1E1E1E', highlightthickness='0')
+
+canvasP2 = Canvas(mainFrame, width=400, height=150, bg='#1E1E1E', highlightthickness='0')
+
+canvasP.place(x=59, y=470)
+canvasP2.place(x=509, y=470)
+
+pentagon = canvasP.create_polygon(pointsPentagon, fill='#178B26', smooth=False)
+pentagon = canvasP2.create_polygon(pointsPentagon, fill='#178B26', smooth=False)
 
 
-#
-# frameOpt1 = roundedEdges(50, 50, 350, 250, r=30, fill='#2A2A2A')
+canvasP.move(pentagon, 0, -80)
+canvasP2.move(pentagon, 0, -80)
 
-frameOpt1 = Frame(mainFrame, width=150, height=500, highlightthickness=0, background='#2A2A2A')
-#
-# frameOpt2 = Frame(mainFrame, width=150, height=500, highlightthickness=0, background='#2A2A2A')
-#
-# frameOpt3 = Frame(mainFrame, width=300, height=450, highlightthickness=0, background='#2A2A2A')
-#
-# frameOpt3.pack()
-# frameOpt1.pack()
-# frameOpt2.pack()
+frameOpt1 = Frame(mainFrame, width=275, height=300, highlightthickness=0, background='#2A2A2A')
+
+frameOpt2 = Frame(mainFrame, width=275, height=300, highlightthickness=0, background='#2A2A2A')
+
+frameOpt1.place(x=120, y=200)
+
+frameOpt2.place(x=570, y=200)
+
+canvasM = Canvas(window, bg="black", highlightthickness=0)
+canvasM.place(x=100, y=100)
+
+pil_image = Image.open("MiataImage.png")
+photo_image = PhotoImage(pil_image)
+canvasM.create_image(0, 0, image=photo_image, anchor='nw')
+
+
+
+
+
+
+
+
+miataIMG = Image.open("MiataImage.png")
+miataIMG.resize((100, 100),Image.Resampling.LANCZOS)
+miataIMG = ImageTk.PhotoImage(miataIMG)
+
+photoLabel = Label(mainFrame, image=miataIMG)
+photoLabel.place(x=250,y=250)
+
+photoLabel.configure(image=miataIMG)
+photoLabel.image = miataIMG
 
 ########### End of First Screen ###########
 
