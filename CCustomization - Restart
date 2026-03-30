@@ -1,0 +1,35 @@
+from tkinter import *
+
+window = Tk()
+window.title("Main Menu")
+window.geometry("1000x650")
+
+# swap screen #
+def show_frame(frame):
+    frame.tkraise()
+
+# container
+container = Frame(window, bg="grey")
+container.pack(fill="both", expand=True)
+
+container.grid_rowconfigure(0, weight=1)
+container.grid_columnconfigure(0, weight=1)
+
+# screens
+
+mainGUI = Frame(container, bg="#1e1e1e")
+miataScreen = Frame(container)
+s2kScreen = Frame(container)
+
+for frame in (mainGUI, miataScreen, s2kScreen):
+    frame.grid(row=0, column=0, sticky="nsew")
+
+# mainGUI
+
+title = Label(mainGUI, text="Choose A Car", font=("Courier New", 30, "bold"), fg="white", bg="#1e1e1e")
+title.pack(pady=30)
+
+
+show_frame(mainGUI)
+
+window.mainloop()
