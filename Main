@@ -7,15 +7,19 @@ window.title("Main Window")
 window.configure(background='grey')
 window.state('zoomed')
 
+
 def quitGUI():
     time.sleep(1)
     sys.exit(0)
 
+
 def openMiataMenu():
-    pass # -------- Make screen 2 for miata customization
+    pass  # -------- Make screen 2 for miata customization
+
 
 def openS2kMenu():
     pass  # -------- Make screen 2 for s2k customization
+
 
 mainFrame = Frame(window, bg='#1E1E1E')
 mainFrame.place(relwidth=1, relheight=1)
@@ -46,6 +50,9 @@ canvasP2.place(relx=0.7, rely=0.75, anchor='center')
 rect1 = canvasP.create_rectangle(25, 20, 525, 200, fill='#178B26', outline='')
 rect2 = canvasP2.create_rectangle(25, 20, 525, 200, fill='#178B26', outline='')
 
+canvas.tag_bind(rect1, "<Button-1>", openMiataMenu())
+canvas.tag_bind(rect2, "<Button-1>", openS2kMenu())
+
 frameOpt1 = Frame(mainFrame, width=500, height=650, bg='#2A2A2A')
 frameOpt2 = Frame(mainFrame, width=500, height=650, bg='#2A2A2A')
 
@@ -65,7 +72,7 @@ canvasP2.create_text(275, 125, text="Choose", font=("Courier New", 60, "bold"), 
 
 def choose_clicked_miata(event):
     openMiataMenu()
-    
+
 def choose_clicked_s2k(event):
     openS2kMenu()
 
@@ -77,6 +84,9 @@ photoLabel.place(relx=0.5, rely=0.5, anchor='center')
 
 photoLabel.image = s2kIMG
 photoLabel.image = miataIMG
+
+photoLabel.bind("<Button-1>", openMiataMenu())
+photoLabelS.bind("<Button-1>", openS2kMenu())
 
 # ------- IDEA, add checkable boxes to customize, or drop down menu...
 
