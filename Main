@@ -11,6 +11,12 @@ def quitGUI():
     time.sleep(1)
     sys.exit(0)
 
+def openMiataMenu():
+    pass # -------- Make screen 2 for miata customization
+
+def openS2kMenu():
+    pass  # -------- Make screen 2 for s2k customization
+
 mainFrame = Frame(window, bg='#1E1E1E')
 mainFrame.place(relwidth=1, relheight=1)
 
@@ -19,14 +25,14 @@ canvas.place(relx=0.03, rely=0.05, anchor='nw')
 points = [30, 10, 90, 10, 110, 30, 110, 90, 90, 110, 30, 110, 10, 90, 10, 30]
 octagon = canvas.create_polygon(points, fill='#CD2626', outline='black', width=3)
 
-def clicked(event):
+def quit_clicked(event):
     quitGUI()
 
-canvas.tag_bind(octagon, "<Button-1>", clicked)
+canvas.tag_bind(octagon, "<Button-1>", quit_clicked)
 
 quitLabel = Label(canvas, text="QUIT", font=("Courier New", 25, "bold"), fg='white', bg='#CD2626')
 quitLabel.place(relx=0.5, rely=0.5, anchor='center')
-quitLabel.bind("<Button-1>", clicked)
+quitLabel.bind("<Button-1>", quit_clicked)
 
 mFLabel = Label(mainFrame, text="Choose A Car", font=("Courier New", 75, "bold"), bg="#1E1E1E", fg='white')
 mFLabel.place(relx=0.5, rely=0.12, anchor='center')
@@ -50,9 +56,26 @@ miataIMG = Image.open("MiataImage.png")
 miataIMG = miataIMG.resize((500, 300), Image.Resampling.LANCZOS)
 miataIMG = ImageTk.PhotoImage(miataIMG)
 
+s2kIMG = Image.open("s2kImage.png")
+s2kIMG = s2kIMG.resize((470, 365), Image.Resampling.LANCZOS)
+s2kIMG = ImageTk.PhotoImage(s2kIMG)
+
+canvasP.create_text(275, 125, text="Choose", font=("Courier New", 60, "bold"), fill="white")
+canvasP2.create_text(275, 125, text="Choose", font=("Courier New", 60, "bold"), fill="white")
+
+def choose_clicked_miata(event):
+    openMiataMenu()
+    
+def choose_clicked_s2k(event):
+    openS2kMenu()
+
+photoLabelS = Label(frameOpt2, image=s2kIMG, bg='#2A2A2A')
+photoLabelS.place(relx=0.5, rely=0.5, anchor='center')
+
 photoLabel = Label(frameOpt1, image=miataIMG, bg='#2A2A2A')
 photoLabel.place(relx=0.5, rely=0.5, anchor='center')
 
+photoLabel.image = s2kIMG
 photoLabel.image = miataIMG
 
 window.mainloop()
