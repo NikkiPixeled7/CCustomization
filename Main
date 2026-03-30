@@ -3,36 +3,20 @@ import random, os, sys, time
 from PIL import ImageTk, Image
 
 window = Tk()
-
 window.title("Main Window")
-
-window.geometry("250x250")
-
 window.configure(background='grey')
-
 window.state('zoomed')
 
-
-########### Intro Screen ###########
-
 def quitGUI():
-    print("User Pressed Quit..")
     time.sleep(1)
     sys.exit(0)
 
-mainFrame = Frame(window, width=1000, height=1500, highlightbackground='black', highlightthickness=20, background='#1E1E1E')
+mainFrame = Frame(window, bg='#1E1E1E')
+mainFrame.place(relwidth=1, relheight=1)
 
-mainFrame.pack(padx=5, pady=5)
-
-mainFrame.pack_propagate(False)
-
-## octagon
-canvas = Canvas(mainFrame, width=300, height=300, bg="#1E1E1E", highlightthickness=0)
-
-canvas.place(relx=0.02, rely=0.02, anchor='nw')
-
-points = [33.3, 16.7, 66.7, 16.7, 83.3, 33.3, 83.3, 66.7, 66.7, 83.3, 33.3, 83.3, 16.7, 66.7, 16.7, 33.3]
-
+canvas = Canvas(mainFrame, width=120, height=120, bg="#1E1E1E", highlightthickness=0)
+canvas.place(relx=0.03, rely=0.05, anchor='nw')
+points = [30, 10, 90, 10, 110, 30, 110, 90, 90, 110, 30, 110, 10, 90, 10, 30]
 octagon = canvas.create_polygon(points, fill='#CD2626', outline='black', width=3)
 
 def clicked(event):
@@ -40,76 +24,35 @@ def clicked(event):
 
 canvas.tag_bind(octagon, "<Button-1>", clicked)
 
-canvas.move(octagon, 0, 0)
-
-quitLabel = Label(mainFrame, text="QUIT", font=("Courier New", 15, "bold"), fg='white', bg='#CD2626')
-
-quitLabel.place(relx=0.0435,rely=0.075, anchor='nw')
-
+quitLabel = Label(canvas, text="QUIT", font=("Courier New", 25, "bold"), fg='white', bg='#CD2626')
+quitLabel.place(relx=0.5, rely=0.5, anchor='center')
 quitLabel.bind("<Button-1>", clicked)
-## end octagon
 
-mFLabel = Label(mainFrame, text="Choose A Car", font=("Courier New", 25, "bold"), bg="#1E1E1E", fg='white')
+mFLabel = Label(mainFrame, text="Choose A Car", font=("Courier New", 75, "bold"), bg="#1E1E1E", fg='white')
+mFLabel.place(relx=0.5, rely=0.12, anchor='center')
 
-mFLabel.place(relx=0.73, rely=0.05, relwidth=0.5, anchor='ne')
+canvasP = Canvas(mainFrame, width=550, height=220, bg='#1E1E1E', highlightthickness=0)
+canvasP2 = Canvas(mainFrame, width=550, height=220, bg='#1E1E1E', highlightthickness=0)
 
-# Old Quit Button, use for other button code
-# button = Button(mainFrame, text="Quit",bg='red',fg='white', command=quitGUI)
-# button.place(relx=0.05, rely=0.06, anchor='nw')
+canvasP.place(relx=0.3, rely=0.75, anchor='center')
+canvasP2.place(relx=0.7, rely=0.75, anchor='center')
 
-pointsPentagon = [
-    61, 100,  # top-left
-    336, 100,  # top-right
-    336, 200,  # bottom-right
-    61, 200
-]
+rect1 = canvasP.create_rectangle(25, 20, 525, 200, fill='#178B26', outline='')
+rect2 = canvasP2.create_rectangle(25, 20, 525, 200, fill='#178B26', outline='')
 
-canvasP = Canvas(mainFrame, width=400, height=150, bg='#1E1E1E', highlightthickness='0')
+frameOpt1 = Frame(mainFrame, width=500, height=650, bg='#2A2A2A')
+frameOpt2 = Frame(mainFrame, width=500, height=650, bg='#2A2A2A')
 
-canvasP2 = Canvas(mainFrame, width=400, height=150, bg='#1E1E1E', highlightthickness='0')
-
-canvasP.place(x=59, y=470)
-canvasP2.place(x=509, y=470)
-
-pentagon = canvasP.create_polygon(pointsPentagon, fill='#178B26', smooth=False)
-pentagon = canvasP2.create_polygon(pointsPentagon, fill='#178B26', smooth=False)
-
-
-canvasP.move(pentagon, 0, -80)
-canvasP2.move(pentagon, 0, -80)
-
-frameOpt1 = Frame(mainFrame, width=275, height=300, highlightthickness=0, background='#2A2A2A')
-
-frameOpt2 = Frame(mainFrame, width=275, height=300, highlightthickness=0, background='#2A2A2A')
-
-frameOpt1.place(x=120, y=200)
-
-frameOpt2.place(x=570, y=200)
-
-canvasM = Canvas(window, bg="black", highlightthickness=0)
-canvasM.place(x=100, y=100)
-
-pil_image = Image.open("MiataImage.png")
-photo_image = PhotoImage(pil_image)
-canvasM.create_image(0, 0, image=photo_image, anchor='nw')
-
-
-
-
-
-
-
+frameOpt1.place(relx=0.3, rely=0.48, anchor='center')
+frameOpt2.place(relx=0.7, rely=0.48, anchor='center')
 
 miataIMG = Image.open("MiataImage.png")
-miataIMG.resize((100, 100),Image.Resampling.LANCZOS)
+miataIMG = miataIMG.resize((500, 300), Image.Resampling.LANCZOS)
 miataIMG = ImageTk.PhotoImage(miataIMG)
 
-photoLabel = Label(mainFrame, image=miataIMG)
-photoLabel.place(x=250,y=250)
+photoLabel = Label(frameOpt1, image=miataIMG, bg='#2A2A2A')
+photoLabel.place(relx=0.5, rely=0.5, anchor='center')
 
-photoLabel.configure(image=miataIMG)
 photoLabel.image = miataIMG
-
-########### End of First Screen ###########
 
 window.mainloop()
