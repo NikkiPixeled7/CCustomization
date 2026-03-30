@@ -78,4 +78,6 @@ photoLabel.place(relx=0.5, rely=0.5, anchor='center')
 photoLabel.image = s2kIMG
 photoLabel.image = miataIMG
 
+# ------- IDEA, add checkable boxes to customize, or drop down menu...
+
 window.mainloop()
