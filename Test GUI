@@ -1,0 +1,61 @@
+from tkinter import *
+
+window = Tk()
+window.title("Main Menu")
+window.geometry("600x400")
+
+# ---------- Functions to switch screens ----------
+def show_frame(frame):
+    frame.tkraise()
+
+# ---------- Create container ----------
+container = Frame(window)
+container.pack(fill="both", expand=True)
+
+container.grid_rowconfigure(0, weight=1)
+container.grid_columnconfigure(0, weight=1)
+
+# ---------- Screens (Frames) ----------
+main_menu = Frame(container)
+screen1 = Frame(container)
+screen2 = Frame(container)
+
+for frame in (main_menu, screen1, screen2):
+    frame.grid(row=0, column=0, sticky="nsew")
+
+# ---------- MAIN MENU ----------
+title = Label(main_menu, text="Main Menu", font=("Arial", 24))
+title.pack(pady=30)
+
+button_frame = Frame(main_menu)
+button_frame.pack(pady=50)
+
+btn1 = Button(button_frame, text="Choose Option 1",
+              width=20, height=2,
+              command=lambda: show_frame(screen1))
+btn1.grid(row=0, column=0, padx=40)
+
+btn2 = Button(button_frame, text="Choose Option 2",
+              width=20, height=2,
+              command=lambda: show_frame(screen2))
+btn2.grid(row=0, column=1, padx=40)
+
+quit_btn = Button(main_menu, text="Quit", command=window.quit)
+quit_btn.pack(pady=20)
+
+# ---------- SCREEN 1 ----------
+Label(screen1, text="Screen 1", font=("Arial", 24)).pack(pady=50)
+
+Button(screen1, text="Back to Menu",
+       command=lambda: show_frame(main_menu)).pack()
+
+# ---------- SCREEN 2 ----------
+Label(screen2, text="Screen 2", font=("Arial", 24)).pack(pady=50)
+
+Button(screen2, text="Back to Menu",
+       command=lambda: show_frame(main_menu)).pack()
+
+# ---------- Start on main menu ----------
+show_frame(main_menu)
+
+window.mainloop()
