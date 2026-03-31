@@ -47,10 +47,22 @@ for frame in (mainGUI, miataScreen, s2kScreen):
 title = Label(mainGUI, text="Choose A Car", font=("Courier New", 30, "bold"), fg="white", bg="#1e1e1e")
 title.pack(pady=30)
 
+def clearFrame(frame):
+    for widget in frame.winfo_children():
+        widget.destroy()
+
 # Quit Button
 def quitGame():
     messagebox.showinfo("Quitting Popup", "Now Quitting... (Click Ok)")
     time.sleep(1)
+    clearFrame(mainGUI)
+    window.update()
+    time.sleep(.5)
+    hideMainCanvases()
+    window.update()
+    Label(window, text="Closing Now..", font=("Arial", 75, "bold"), fg="white", bg="#1E1E1E").place(relx=0.5, rely=0.5, anchor="center")
+    window.update()
+    time.sleep(5)
     sys.exit(0)
 points = [30, 10, 90, 10, 110, 30, 110, 90, 90, 110, 30, 110, 10, 90, 10, 30]
 
@@ -61,14 +73,32 @@ octagon = canvasQ.create_polygon(points, fill='#CD2626', outline='black', width=
 
 quitLabel = canvasQ.create_text(59, 58, text="QUIT", font=("Courier New", 20, "italic", "bold"), fill="white")
 
+def animateButtonSC(canvas, item, normalCol, darkCol): #SC -> special condition
+    canvas.itemconfig(item, fill=darkCol)
+    canvas.scale(item, 60, 60, 0.95, 0.95)
+    def reset():
+        canvas.itemconfig(item, fill=normalCol)
+        canvas.scale(item, 60, 60, 1 / 0.95, 1 / 0.95)
+
+    canvas.after(100, reset)
+
 def quitClicked(event):
-    quitGame()
+    animateButtonSC(canvasQ, octagon, "#CD2626", "#a81f1f")
+    canvasQ.after(450, lambda: quitGame())
 
 canvasQ.tag_bind(quitLabel, "<Button-1>", quitClicked)
 
 canvasQ.tag_bind(octagon, "<Button-1>", quitClicked)
 
 # ------------ Definitions For Frames ------------
+
+def animateButton(canvas, normalCol, darkCol):
+    canvas.config(bg=darkCol)
+    canvas.scale("all", 0, 0, 0.95, 0.95)
+    def reset():
+        canvas.config(bg=normalCol)
+        canvas.scale("all", 0, 0, 1/0.95, 1/0.95)
+    canvas.after(100, reset)
 
 def showMainCanvases():
     canvasMiata.place(relx=.2, rely=.3, anchor="nw")
@@ -87,12 +117,12 @@ def hideMainCanvases():
     show_frame(mainGUI)
 
 def goMiataScreen(event=None):
-    hideMainCanvases()
-    show_frame(miataScreen)
+    animateButton(canvasMiataGreen, "#178B26", "#0f5f1f")
+    canvasMiataGreen.after(350, lambda: (hideMainCanvases(), show_frame(miataScreen)))
 
 def goS2kScreen(event=None):
-    hideMainCanvases()
-    show_frame(s2kScreen)
+    animateButton(canvasS2kGreen, "#178B26", "#0f5f1f")
+    canvasS2kGreen.after(350, lambda: (hideMainCanvases(), show_frame(s2kScreen)))
 
 # ------------ CarOptions ------------
 
@@ -102,23 +132,19 @@ canvasMiata.place(relx=.2, rely=0.3, anchor='nw')
 canvasMiataGreen.place(relx=.2, rely=0.75, anchor='nw')
 
 miataImage = Image.open("MiataImage.png")
-miataImage = miataImage.resize((275, 200))
+miataImage = miataImage.resize((275, 165))
 miataImage = ImageTk.PhotoImage(miataImage)
 miataImageId = canvasMiata.create_image(0, 0, anchor="center", image=miataImage)
 canvasMiata.move(miataImageId, 125, 150)
+
+miataTxt = canvasMiata.create_text(125, 30, text="Mx-5 Miata", font=("Courier New", 25, "bold"), fill='#a6a6a6')
+miataChooseTxt = canvasMiataGreen.create_text(125, 37, anchor='center', text="Choose", font=("Courier New", 35, "bold"), fill='#13440f')
 
 canvasMiataGreen.bind("<Button-1>", goMiataScreen)
 
 # ------------ change frame miata ------------
 
 Label(miataScreen, text="Miata Customization", font=("Courier New", 32, "bold"), fg='white', bg="#1e1e1e").pack(pady=50)
-#
-# miataIMG = Image.open("MiataImage.png")
-# miataIMG = miataIMG.resize((100, 80), Image.Resampling.LANCZOS)
-# miataIMG = ImageTk.PhotoImage(miataIMG)
-#
-# photoLabelM = Label(mainGUI, image=miataIMG, bg="#2A2A2A")
-# photoLabelM.place(relx=0.5, rely=0.5, anchor='center')
 
 Button(miataScreen, text="Back to Menu",
        command=lambda: showMainCanvases()).pack()
@@ -129,6 +155,15 @@ canvasS2k = Canvas(window, width=250, height=350, bg="#2A2A2A", highlightthickne
 canvasS2kGreen = Canvas(window, width=250, height=80, bg="#178B26", highlightthickness=0)
 canvasS2k.place(relx=.8, rely=0.3, anchor='ne')
 canvasS2kGreen.place(relx=.8, rely=0.75, anchor='ne')
+
+s2kImage = Image.open("s2kImage.png")
+s2kImage = s2kImage.resize((275, 200))
+s2kImage = ImageTk.PhotoImage(s2kImage)
+s2kImageId = canvasS2k.create_image(0, 0, anchor="center", image=s2kImage)
+canvasS2k.move(s2kImageId, 125, 150)
+
+s2kTxt = canvasS2k.create_text(125, 30, text="Honda S2K", font=("Courier New", 25, "bold"), fill='#a6a6a6')
+s2kChooseTxt = canvasS2kGreen.create_text(125, 37, anchor='center', text="Choose", font=("Courier New", 35, "bold"), fill='#13440f')
 
 canvasS2kGreen.bind("<Button-1>", goS2kScreen)
 
