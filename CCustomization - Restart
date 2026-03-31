@@ -1,136 +1,50 @@
-from tkinter import *
-from tkinter import messagebox
-import random,  time, sys, os
-
-window = Tk()
-window.title("Main Menu")
-width = 1000
-height = 650
-
-# --------- Center Window On Screen ----------
-
-screen_width = window.winfo_screenwidth()
-screen_height = window.winfo_screenheight()
-
-x = int((screen_width / 2) - (width / 2))
-y = int((screen_height / 2) - (height / 2))
-
-window.geometry(f"{width}x{height}+{x}+{y}")
-
-# window.geometry("1000x650")
-
-# -------------------------------------------
-
-# swap screen #
-def show_frame(frame):
-    frame.tkraise()
-
-# container
-container = Frame(window, bg="grey")
-container.pack(fill="both", expand=True)
-
-container.grid_rowconfigure(0, weight=1)
-container.grid_columnconfigure(0, weight=1)
-
-# screens
-
-mainGUI = Frame(container, bg="#1e1e1e")
-miataScreen = Frame(container, bg="#1e1e1e")
-s2kScreen = Frame(container, bg="#1e1e1e")
-
-for frame in (mainGUI, miataScreen, s2kScreen):
-    frame.grid(row=0, column=0, sticky="nsew")
-
-# mainGUI
-
-title = Label(mainGUI, text="Choose A Car", font=("Courier New", 30, "bold"), fg="white", bg="#1e1e1e")
-title.pack(pady=30)
-
-# Quit Button
-def quitGame():
-    messagebox.showinfo("Quitting Popup", "Now Quitting... (Click Ok)")
-    time.sleep(1)
-    sys.exit(0)
-points = [30, 10, 90, 10, 110, 30, 110, 90, 90, 110, 30, 110, 10, 90, 10, 30]
-
-canvasQ = Canvas(mainGUI, width=120, height=120, bg="#1E1E1E", highlightthickness=0)
-canvasQ.place(relx=0.03, rely=0.05, anchor='nw')
-points = [30, 10, 90, 10, 110, 30, 110, 90, 90, 110, 30, 110, 10, 90, 10, 30]
-octagon = canvasQ.create_polygon(points, fill='#CD2626', outline='black', width=3)
-
-quitLabel = canvasQ.create_text(59, 58, text="QUIT", font=("Courier New", 20, "italic", "bold"), fill="white")
-
-def quitClicked(event):
-    quitGame()
-
-canvasQ.tag_bind(quitLabel, "<Button-1>", quitClicked)
-
-canvasQ.tag_bind(octagon, "<Button-1>", quitClicked)
-
-# ------------ Definitions For Frames ------------
-
-def showMainCanvases():
-    canvasMiata.place(relx=.2, rely=.3, anchor="nw")
-    canvasMiataGreen.place(relx=.2, rely=0.75, anchor='nw')
-
-    canvasS2k.place(relx=.8, rely=0.3, anchor='ne')
-    canvasS2kGreen.place(relx=.8, rely=0.75, anchor='ne')
-    show_frame(mainGUI)
-
-def hideMainCanvases():
-    canvasMiata.place_forget()
-    canvasMiataGreen.place_forget()
-
-    canvasS2k.place_forget()
-    canvasS2kGreen.place_forget()
-    show_frame(mainGUI)
-
-def goMiataScreen(event=None):
-    hideMainCanvases()
-    show_frame(miataScreen)
-
-def goS2kScreen(event=None):
-    hideMainCanvases()
-    show_frame(s2kScreen)
-
-# ------------ CarOptions ------------
-
-canvasMiata = Canvas(window, width=250, height=350, bg="#2A2A2A", highlightthickness=0)
-canvasMiataGreen = Canvas(window, width=250, height=80, bg="#178B26", highlightthickness=0)
-canvasMiata.place(relx=.2, rely=0.3, anchor='nw')
-canvasMiataGreen.place(relx=.2, rely=0.75, anchor='nw')
-
-canvasMiataGreen.bind("<Button-1>", goMiataScreen)
-
-# ------------ change frame miata ------------
-
-Label(miataScreen, text="Miata Customization", font=("Courier New", 32, "bold"), fg='white', bg="#1e1e1e").pack(pady=50)
-
-Button(miataScreen, text="Back to Menu",
-       command=lambda: showMainCanvases()).pack()
-
-# ------------  miata close  ------------
-
-canvasS2k = Canvas(window, width=250, height=350, bg="#2A2A2A", highlightthickness=0)
-canvasS2kGreen = Canvas(window, width=250, height=80, bg="#178B26", highlightthickness=0)
-canvasS2k.place(relx=.8, rely=0.3, anchor='ne')
-canvasS2kGreen.place(relx=.8, rely=0.75, anchor='ne')
-
-canvasS2kGreen.bind("<Button-1>", goS2kScreen)
-
-# ------------ change frame s2k ------------
-
-Label(s2kScreen, text="S2K Customization", font=("Courier New", 32, "bold"), fg='white', bg="#1e1e1e").pack(pady=50)
-
-Button(s2kScreen, text="Back to Menu",
-       command=lambda: showMainCanvases()).pack()
-
-# ------------  s2k close  ------------
+window.configure(background='grey')
+window.state('zoomed')
 
 
+def quitGUI():
+time.sleep(1)
+sys.exit(0)
 
-# ----------------- End Items -----------------
 
-show_frame(mainGUI)
+def openMiataMenu():
+    pass # -------- Make screen 2 for miata customization
+    pass  # -------- Make screen 2 for miata customization
+
+
+def openS2kMenu():
+pass  # -------- Make screen 2 for s2k customization
+
+
+mainFrame = Frame(window, bg='#1E1E1E')
+mainFrame.place(relwidth=1, relheight=1)
+
+@@ -46,6 +50,9 @@ canvasP2.place(relx=0.7, rely=0.75, anchor='center')
+rect1 = canvasP.create_rectangle(25, 20, 525, 200, fill='#178B26', outline='')
+rect2 = canvasP2.create_rectangle(25, 20, 525, 200, fill='#178B26', outline='')
+
+canvas.tag_bind(rect1, "<Button-1>", openMiataMenu())
+canvas.tag_bind(rect2, "<Button-1>", openS2kMenu())
+
+frameOpt1 = Frame(mainFrame, width=500, height=650, bg='#2A2A2A')
+frameOpt2 = Frame(mainFrame, width=500, height=650, bg='#2A2A2A')
+
+@@ -65,7 +72,7 @@ canvasP2.create_text(275, 125, text="Choose", font=("Courier New", 60, "bold"),
+
+def choose_clicked_miata(event):
+openMiataMenu()
+    
+
+def choose_clicked_s2k(event):
+openS2kMenu()
+
+@@ -78,6 +85,9 @@ photoLabel.place(relx=0.5, rely=0.5, anchor='center')
+photoLabel.image = s2kIMG
+photoLabel.image = miataIMG
+
+photoLabel.bind("<Button-1>", openMiataMenu())
+photoLabelS.bind("<Button-1>", openS2kMenu())
+
+# ------- IDEA, add checkable boxes to customize, or drop down menu...
 
 window.mainloop()
