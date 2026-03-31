@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-import random,  time, sys, os
+from PIL import ImageTk, Image
+import random,  time, sys, os, PIL
 
 window = Tk()
 window.title("Main Menu")
@@ -100,11 +101,24 @@ canvasMiataGreen = Canvas(window, width=250, height=80, bg="#178B26", highlightt
 canvasMiata.place(relx=.2, rely=0.3, anchor='nw')
 canvasMiataGreen.place(relx=.2, rely=0.75, anchor='nw')
 
+miataImage = Image.open("MiataImage.png")
+miataImage = miataImage.resize((275, 200))
+miataImage = ImageTk.PhotoImage(miataImage)
+miataImageId = canvasMiata.create_image(0, 0, anchor="center", image=miataImage)
+canvasMiata.move(miataImageId, 125, 150)
+
 canvasMiataGreen.bind("<Button-1>", goMiataScreen)
 
 # ------------ change frame miata ------------
 
 Label(miataScreen, text="Miata Customization", font=("Courier New", 32, "bold"), fg='white', bg="#1e1e1e").pack(pady=50)
+#
+# miataIMG = Image.open("MiataImage.png")
+# miataIMG = miataIMG.resize((100, 80), Image.Resampling.LANCZOS)
+# miataIMG = ImageTk.PhotoImage(miataIMG)
+#
+# photoLabelM = Label(mainGUI, image=miataIMG, bg="#2A2A2A")
+# photoLabelM.place(relx=0.5, rely=0.5, anchor='center')
 
 Button(miataScreen, text="Back to Menu",
        command=lambda: showMainCanvases()).pack()
@@ -121,6 +135,10 @@ canvasS2kGreen.bind("<Button-1>", goS2kScreen)
 # ------------ change frame s2k ------------
 
 Label(s2kScreen, text="S2K Customization", font=("Courier New", 32, "bold"), fg='white', bg="#1e1e1e").pack(pady=50)
+
+s2kIMG = Image.open("S2KImage.png")
+s2kIMG = s2kIMG.resize((100, 75), Image.Resampling.LANCZOS)
+s2kIMG = ImageTk.PhotoImage(s2kIMG)
 
 Button(s2kScreen, text="Back to Menu",
        command=lambda: showMainCanvases()).pack()
