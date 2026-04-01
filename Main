@@ -8,6 +8,12 @@ window.title("Main Menu")
 width = 1000
 height = 650
 
+# Globals
+clickedB1 = 0
+clickedB2 = 0
+clickedB3 = 0
+clickedB4 = 0
+
 # --------- Center Window On Screen ----------
 
 screen_width = window.winfo_screenwidth()
@@ -99,6 +105,14 @@ def animateButton(canvas, normalCol, darkCol):
         canvas.config(bg=normalCol)
         canvas.scale("all", 0, 0, 1/0.95, 1/0.95)
     canvas.after(100, reset)
+
+def animateButtonOnOff(canvas, isOn, normalCol, darkCol):
+    if isOn:
+        canvas.config(bg=darkCol)
+        canvas.scale("all", 0, 0, 0.95, 0.95)
+    else:
+        canvas.config(bg=normalCol)
+        canvas.scale("all", 0, 0, 1/0.95, 1/0.95)
 
 def showMainCanvases():
     canvasMiata.place(relx=.2, rely=.3, anchor="nw")
@@ -228,6 +242,126 @@ def redBackArrow(parent, x=50, y=50):
     canvasArrow.bind("<Button-1>", goBack)
 
     return canvasArrow, arrow
+
+# ------------  Miata Costumes 3/3  ------------
+# MCB = Miata Custom Button
+canvasMCB1 = Canvas(canvasMiataCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+canvasMCB2 = Canvas(canvasMiataCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+canvasMCB3 = Canvas(canvasMiataCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+canvasMCB4 = Canvas(canvasMiataCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+
+spoilerText = canvasMCB1.create_text(0, 0, text="Spoiler", font=("Courier New", 25, "bold"), fill='white')
+skirtText = canvasMCB2.create_text(0, 0, text="Skirt Pack", font=("Courier New", 17, "bold"), fill='white')
+rimsText = canvasMCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "bold"), fill='white')
+colourText = canvasMCB4.create_text(0, 0, text="Colour", font=("Courier New", 25, "bold"), fill='white')
+
+def spoilerAdd():
+    pass ## add spoiler overlay
+
+def spoilerRemove():
+    pass ## remove spoiler overlay
+
+
+def spoilerClicked(event):
+    global clickedB1
+    clickedB1 += 1
+
+    isOn = (clickedB1 % 2 == 1)
+
+    animateButtonOnOff(canvasMCB1, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        spoilerAdd()
+    else:
+        spoilerRemove()
+
+
+def skirtPackAdd():
+    pass ## add skirt pack overlay
+
+def skirtPackRemove():
+    pass ## remove skirt pack overlay
+
+def skirtPackClicked(event):
+    global clickedB2
+    clickedB2 += 1
+
+    isOn = (clickedB2 % 2 == 1)
+
+    animateButtonOnOff(canvasMCB2, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        skirtPackAdd()
+    else:
+        skirtPackRemove()
+
+def rimsAdd():
+    pass ## add rims overlay
+
+def rimsRemove():
+    pass ## remove rims overlay
+
+def rimsClicked(event):
+    global clickedB3
+    clickedB3 += 1
+
+    isOn = (clickedB3 % 2 == 1)
+
+    animateButtonOnOff(canvasMCB3, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        rimsAdd()
+    else:
+        rimsRemove()
+def colourAdd():
+    pass ## add colour overlay
+
+def colourRemove():
+    pass ## remove colour overlay
+
+def colourClicked(event):
+    global clickedB4
+    clickedB4 += 1
+
+    isOn = (clickedB4 % 2 == 1)
+
+    animateButtonOnOff(canvasMCB4, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        colourAdd()
+    else:
+        colourRemove()
+
+canvasMCB1.bind("<Button-1>", spoilerClicked)
+canvasMCB2.bind("<Button-1>", skirtPackClicked)
+canvasMCB3.bind("<Button-1>", rimsClicked)
+canvasMCB4.bind("<Button-1>", colourClicked)
+
+canvasMCB1.move(spoilerText, 75, 36)
+canvasMCB2.move(spoilerText, 75, 36)
+canvasMCB3.move(spoilerText, 75, 36)
+canvasMCB4.move(spoilerText, 75, 36)
+
+canvasMCB1.place(relx=0.125, rely=0.85, anchor="center")
+canvasMCB2.place(relx=0.375, rely=0.85, anchor="center")
+canvasMCB3.place(relx=0.625, rely=0.85, anchor="center")
+canvasMCB4.place(relx=0.875, rely=0.85, anchor="center")
+
+# ------------  Miata Costume Close  ------------
+
+# ------------  S2k Costumes 3/3  ------------
+# MCB = S2k Custom Button
+canvasSCB1 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+canvasSCB2 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+canvasSCB3 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+canvasSCB4 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+
+canvasSCB1.place(relx=0.125, rely=0.85, anchor="center")
+canvasSCB2.place(relx=0.375, rely=0.85, anchor="center")
+canvasSCB3.place(relx=0.625, rely=0.85, anchor="center")
+canvasSCB4.place(relx=0.875, rely=0.85, anchor="center")
+
+# ------------  S2k Costume Close  ------------
 
 # --------------------------------------------
 
