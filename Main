@@ -13,6 +13,10 @@ clickedB1 = 0
 clickedB2 = 0
 clickedB3 = 0
 clickedB4 = 0
+clickedB1S = 0
+clickedB2S = 0
+clickedB3S = 0
+clickedB4S = 0
 
 # --------- Center Window On Screen ----------
 
@@ -355,6 +359,98 @@ canvasSCB1 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', hig
 canvasSCB2 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
 canvasSCB3 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
 canvasSCB4 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
+
+spoilerTextS = canvasSCB1.create_text(0, 0, text="Spoiler", font=("Courier New", 25, "bold"), fill='white')
+skirtTextS = canvasSCB2.create_text(0, 0, text="Skirt Pack", font=("Courier New", 17, "bold"), fill='white')
+rimsTextS = canvasSCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "bold"), fill='white')
+colourTextS = canvasSCB4.create_text(0, 0, text="Colour", font=("Courier New", 25, "bold"), fill='white')
+
+def spoilerAddS():
+    pass ## add spoiler overlay
+
+def spoilerRemoveS():
+    pass ## remove spoiler overlay
+
+
+def spoilerClickedS(event):
+    global clickedB1S
+    clickedB1S += 1
+
+    isOn = (clickedB1S % 2 == 1)
+
+    animateButtonOnOff(canvasSCB1, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        spoilerAddS()
+    else:
+        spoilerRemoveS()
+
+
+def skirtPackAddS():
+    pass ## add skirt pack overlay
+
+def skirtPackRemoveS():
+    pass ## remove skirt pack overlay
+
+def skirtPackClickedS(event):
+    global clickedB2S
+    clickedB2S += 1
+
+    isOn = (clickedB2S % 2 == 1)
+
+    animateButtonOnOff(canvasSCB2, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        skirtPackAddS()
+    else:
+        skirtPackRemoveS()
+
+def rimsAddS():
+    pass ## add rims overlay
+
+def rimsRemoveS():
+    pass ## remove rims overlay
+
+def rimsClickedS(event):
+    global clickedB3S
+    clickedB3S += 1
+
+    isOn = (clickedB3S % 2 == 1)
+
+    animateButtonOnOff(canvasSCB3, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        rimsAddS()
+    else:
+        rimsRemoveS()
+def colourAddS():
+    pass ## add colour overlay
+
+def colourRemoveS():
+    pass ## remove colour overlay
+
+def colourClickedS(event):
+    global clickedB4S
+    clickedB4S += 1
+
+    isOn = (clickedB4S % 2 == 1)
+
+    animateButtonOnOff(canvasSCB4, isOn, "#178B26", "#0f5f1f")
+
+    if isOn:
+        colourAddS()
+    else:
+        colourRemoveS()
+
+canvasSCB1.bind("<Button-1>", spoilerClickedS)
+canvasSCB2.bind("<Button-1>", skirtPackClickedS)
+canvasSCB3.bind("<Button-1>", rimsClickedS)
+canvasSCB4.bind("<Button-1>", colourClickedS)
+
+canvasSCB1.move(spoilerTextS, 75, 36)
+canvasSCB2.move(spoilerTextS, 75, 36)
+canvasSCB3.move(spoilerTextS, 75, 36)
+canvasSCB4.move(spoilerTextS, 75, 36)
 
 canvasSCB1.place(relx=0.125, rely=0.85, anchor="center")
 canvasSCB2.place(relx=0.375, rely=0.85, anchor="center")
