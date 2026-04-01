@@ -260,8 +260,15 @@ rimsText = canvasMCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "b
 colourText = canvasMCB4.create_text(0, 0, text="Colour", font=("Courier New", 25, "bold"), fill='white')
 
 def spoilerAdd():
-    pass ## add spoiler overlay
+    miataSpoilerIMG = Image.open("spoilerMiata.png")
+    miataSpoilerIMG = miataSpoilerIMG.resize((550, 400), Image.Resampling.LANCZOS)
 
+    miataSpoilerTk = ImageTk.PhotoImage(miataSpoilerIMG)
+
+    canvasMiataCustom.spoilerID = miataSpoilerTk
+
+    spoilerObj = miataSpoilerIMG.create_image(375, 200, anchor="center", image=miataSpoilerTk)
+    canvasMiataCustom.move(spoilerObj, 0, -15)
 def spoilerRemove():
     pass ## remove spoiler overlay
 
