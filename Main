@@ -44,8 +44,8 @@ for frame in (mainGUI, miataScreen, s2kScreen):
 
 # mainGUI
 
-title = Label(mainGUI, text="Choose A Car", font=("Courier New", 30, "bold"), fg="white", bg="#1e1e1e")
-title.pack(pady=30)
+title = Label(mainGUI, text="Choose A Car", font=("Courier New", 40, "bold"), fg="white", bg="#1e1e1e")
+title.pack(pady=55)
 
 def clearFrame(frame):
     for widget in frame.winfo_children():
@@ -62,7 +62,7 @@ def quitGame():
     window.update()
     Label(window, text="Closing Now..", font=("Arial", 75, "bold"), fg="white", bg="#1E1E1E").place(relx=0.5, rely=0.5, anchor="center")
     window.update()
-    time.sleep(5)
+    time.sleep(1)
     sys.exit(0)
 points = [30, 10, 90, 10, 110, 30, 110, 90, 90, 110, 30, 110, 10, 90, 10, 30]
 
@@ -118,11 +118,11 @@ def hideMainCanvases():
 
 def goMiataScreen(event=None):
     animateButton(canvasMiataGreen, "#178B26", "#0f5f1f")
-    canvasMiataGreen.after(350, lambda: (hideMainCanvases(), show_frame(miataScreen)))
+    canvasMiataGreen.after(350, lambda: (hideMainCanvases(), show_frame(miataScreen), redBackArrow(miataScreen, 20, 20)))
 
 def goS2kScreen(event=None):
     animateButton(canvasS2kGreen, "#178B26", "#0f5f1f")
-    canvasS2kGreen.after(350, lambda: (hideMainCanvases(), show_frame(s2kScreen)))
+    canvasS2kGreen.after(350, lambda: (hideMainCanvases(), show_frame(s2kScreen), redBackArrow(s2kScreen, 20, 20)))
 
 # ------------ CarOptions ------------
 
@@ -146,8 +146,20 @@ canvasMiataGreen.bind("<Button-1>", goMiataScreen)
 
 Label(miataScreen, text="Miata Customization", font=("Courier New", 32, "bold"), fg='white', bg="#1e1e1e").pack(pady=50)
 
-Button(miataScreen, text="Back to Menu",
-       command=lambda: showMainCanvases()).pack()
+canvasMiataCustom = Canvas(miataScreen, width=750, height=475, bg="#2A2A2A", highlightthickness=0)
+canvasMiataCustom.place(relx=.12, rely=0.2, anchor='nw')
+
+miataImageBase = Image.open("MiataImage.png")
+miataImageBase = miataImageBase.resize((550, 325), Image.Resampling.LANCZOS)
+miataImage2 = ImageTk.PhotoImage(miataImageBase)
+
+miataImageCustom = canvasMiataCustom.create_image(375, 200, anchor="center", image=miataImage2)
+canvasMiataCustom.move(miataImageCustom, 0, -30)
+
+canvasMiataCustom.image = miataImage
+
+# Button(miataScreen, text="Back to Menu", ## --------- Old BTM Button
+#        command=lambda: showMainCanvases()).pack()
 
 # ------------  miata close  ------------
 
@@ -171,16 +183,53 @@ canvasS2kGreen.bind("<Button-1>", goS2kScreen)
 
 Label(s2kScreen, text="S2K Customization", font=("Courier New", 32, "bold"), fg='white', bg="#1e1e1e").pack(pady=50)
 
-s2kIMG = Image.open("S2KImage.png")
-s2kIMG = s2kIMG.resize((100, 75), Image.Resampling.LANCZOS)
-s2kIMG = ImageTk.PhotoImage(s2kIMG)
+canvasS2kCustom = Canvas(s2kScreen, width=750, height=475, bg="#2A2A2A", highlightthickness=0)
+canvasS2kCustom.place(relx=0.12, rely=0.2, anchor='nw')
 
-Button(s2kScreen, text="Back to Menu",
-       command=lambda: showMainCanvases()).pack()
+s2kImageBase = Image.open("S2KImage.png")
+s2kImageBase = s2kImageBase.resize((550, 400), Image.Resampling.LANCZOS)
+s2kImage2 = ImageTk.PhotoImage(s2kImageBase)
+
+s2kImageCustom = canvasS2kCustom.create_image(375, 200, anchor="center", image=s2kImage2)
+canvasS2kCustom.move(s2kImageCustom, 0, -15)
+
+canvasS2kCustom.image = s2kImage
+
+# Button(s2kScreen, text="Back to Menu", ## --------- Old BTM Button
+#        command=lambda: showMainCanvases()).pack()
 
 # ------------  s2k close  ------------
 
+# ------------ Back Arrow Def ------------
 
+arrow_points = [
+    100, 20,   # top right
+    40, 20,    # start of arrow head
+    40, 0,     # top tip
+    0, 40,     # middle tip (pointing left)
+    40, 80,    # bottom tip
+    40, 60,    # bottom inner
+    100, 60    # bottom right
+]
+
+def redBackArrow(parent, x=50, y=50):
+    canvasArrow = Canvas(parent, width=120, height=80, bg="#1E1E1E", highlightthickness=0)
+    canvasArrow.place(x=x, y=y)
+
+    arrow = canvasArrow.create_polygon(arrow_points, fill="#CD2626", outline="black", width=2)
+
+    arrowTxt = canvasArrow.create_text(0, 0, text="Back", font=("Courier New", 15, "bold"), fill='white')
+    canvasArrow.move(arrowTxt, 55, 39)
+
+    def goBack(event):
+        animateButtonSC(canvasArrow, arrow, "#CD2626", "#a81f1f")
+        canvasArrow.after(350, lambda: (showMainCanvases(), show_frame(mainGUI)))
+
+    canvasArrow.bind("<Button-1>", goBack)
+
+    return canvasArrow, arrow
+
+# --------------------------------------------
 
 # ----------------- End Items -----------------
 
