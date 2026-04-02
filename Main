@@ -171,10 +171,10 @@ miataImageBase = Image.open("MiataImage.png")
 miataImageBase = miataImageBase.resize((550, 325), Image.Resampling.LANCZOS)
 miataImage2 = ImageTk.PhotoImage(miataImageBase)
 
-miataImageCustom = canvasMiataCustom.create_image(375, 200, anchor="center", image=miataImage2)
-canvasMiataCustom.move(miataImageCustom, 0, -30)
-
-canvasMiataCustom.image = miataImage
+# miataImageCustom = canvasMiataCustom.create_image(375, 200, anchor="center", image=miataImage2)
+# canvasMiataCustom.move(miataImageCustom, 0, -30)
+#
+# canvasMiataCustom.image = miataImage2
 
 # Button(miataScreen, text="Back to Menu", ## --------- Old BTM Button
 #        command=lambda: showMainCanvases()).pack()
@@ -257,20 +257,23 @@ canvasMCB4 = Canvas(canvasMiataCustom, width='150', height='65', bg='#178B26', h
 spoilerText = canvasMCB1.create_text(0, 0, text="Spoiler", font=("Courier New", 25, "bold"), fill='white')
 skirtText = canvasMCB2.create_text(0, 0, text="Skirt Pack", font=("Courier New", 17, "bold"), fill='white')
 rimsText = canvasMCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "bold"), fill='white')
-colourText = canvasMCB4.create_text(0, 0, text="Colour", font=("Courier New", 25, "bold"), fill='white')
+colourText = canvasMCB4.create_text(0, 0, text="Angry Eyes", font=("Courier New", 15, "bold"), fill='white')
 
 def spoilerAdd():
+    global miataSpoilerPhoto, spoilerIMGID
     miataSpoilerIMG = Image.open("spoilerMiata.png")
-    miataSpoilerIMG = miataSpoilerIMG.resize((550, 400), Image.Resampling.LANCZOS)
+    miataSpoilerIMG = miataSpoilerIMG.resize((250, 165), Image.Resampling.LANCZOS)
+    miataSpoilerPhoto = ImageTk.PhotoImage(miataSpoilerIMG)
+    spoilerIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataSpoilerPhoto)
+    canvasMiataCustom.move(spoilerIMGID, 175, -68)
 
-    miataSpoilerTk = ImageTk.PhotoImage(miataSpoilerIMG)
+    miataImageCustom = canvasMiataCustom.create_image(375, 200, anchor="center", image=miataImage2)
+    canvasMiataCustom.move(miataImageCustom, 0, -30)
 
-    canvasMiataCustom.spoilerID = miataSpoilerTk
-
-    spoilerObj = miataSpoilerIMG.create_image(375, 200, anchor="center", image=miataSpoilerTk)
-    canvasMiataCustom.move(spoilerObj, 0, -15)
+    canvasMiataCustom.image = miataImage2
 def spoilerRemove():
-    pass ## remove spoiler overlay
+    global miataSpoilerPhoto, spoilerIMGID
+    canvasMiataCustom.delete(spoilerIMGID)
 
 
 def spoilerClicked(event):
@@ -361,7 +364,7 @@ canvasMCB4.place(relx=0.875, rely=0.85, anchor="center")
 # ------------  Miata Costume Close  ------------
 
 # ------------  S2k Costumes 3/3  ------------
-# MCB = S2k Custom Button
+# SCB = S2k Custom Button
 canvasSCB1 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
 canvasSCB2 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
 canvasSCB3 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', highlightthickness=0)
@@ -370,7 +373,7 @@ canvasSCB4 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', hig
 spoilerTextS = canvasSCB1.create_text(0, 0, text="Spoiler", font=("Courier New", 25, "bold"), fill='white')
 skirtTextS = canvasSCB2.create_text(0, 0, text="Skirt Pack", font=("Courier New", 17, "bold"), fill='white')
 rimsTextS = canvasSCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "bold"), fill='white')
-colourTextS = canvasSCB4.create_text(0, 0, text="Colour", font=("Courier New", 25, "bold"), fill='white')
+colourTextS = canvasSCB4.create_text(0, 0, text="Unchosen", font=("Courier New", 25, "bold"), fill='white')
 
 def spoilerAddS():
     pass ## add spoiler overlay
