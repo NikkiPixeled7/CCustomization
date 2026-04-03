@@ -257,7 +257,7 @@ canvasMCB4 = Canvas(canvasMiataCustom, width='150', height='65', bg='#178B26', h
 spoilerText = canvasMCB1.create_text(0, 0, text="Spoiler", font=("Courier New", 25, "bold"), fill='white')
 skirtText = canvasMCB2.create_text(0, 0, text="Skirt Pack", font=("Courier New", 17, "bold"), fill='white')
 rimsText = canvasMCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "bold"), fill='white')
-colourText = canvasMCB4.create_text(0, 0, text="Angry Eyes", font=("Courier New", 15, "bold"), fill='white')
+colourText = canvasMCB4.create_text(0, 0, text="Tired Eyes", font=("Courier New", 15, "bold"), fill='white')
 
 def spoilerAdd():
     global miataSpoilerPhoto, spoilerIMGID
@@ -330,10 +330,17 @@ def rimsClicked(event):
     else:
         rimsRemove()
 def colourAdd():
-    pass ## add colour overlay
+    global miataEyesPhoto, eyesIMGID
+    miataEyesIMG = Image.open("miataEyes.png")
+    miataEyesIMG = miataEyesIMG.resize((189, 38), Image.Resampling.LANCZOS)
+    miataEyesPhoto = ImageTk.PhotoImage(miataEyesIMG)
+
+    eyesIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataEyesPhoto)
+    canvasMiataCustom.move(eyesIMGID, -134, -14)
 
 def colourRemove():
-    pass ## remove colour overlay
+    global miataEyesPhoto, eyesIMGID
+    canvasMiataCustom.delete(eyesIMGID)
 
 def colourClicked(event):
     global clickedB4
