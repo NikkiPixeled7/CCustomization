@@ -171,10 +171,10 @@ miataImageBase = Image.open("MiataImage.png")
 miataImageBase = miataImageBase.resize((550, 325), Image.Resampling.LANCZOS)
 miataImage2 = ImageTk.PhotoImage(miataImageBase)
 
-# miataImageCustom = canvasMiataCustom.create_image(375, 200, anchor="center", image=miataImage2)
-# canvasMiataCustom.move(miataImageCustom, 0, -30)
-#
-# canvasMiataCustom.image = miataImage2
+miataImageCustom = canvasMiataCustom.create_image(375, 200, anchor="center", image=miataImage2)
+canvasMiataCustom.move(miataImageCustom, 0, -30)
+
+canvasMiataCustom.image = miataImage2
 
 # Button(miataScreen, text="Back to Menu", ## --------- Old BTM Button
 #        command=lambda: showMainCanvases()).pack()
@@ -267,14 +267,10 @@ def spoilerAdd():
     spoilerIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataSpoilerPhoto)
     canvasMiataCustom.move(spoilerIMGID, 175, -68)
 
-    miataImageCustom = canvasMiataCustom.create_image(375, 200, anchor="center", image=miataImage2)
-    canvasMiataCustom.move(miataImageCustom, 0, -30)
-
     canvasMiataCustom.image = miataImage2
 def spoilerRemove():
     global miataSpoilerPhoto, spoilerIMGID
     canvasMiataCustom.delete(spoilerIMGID)
-
 
 def spoilerClicked(event):
     global clickedB1
@@ -289,6 +285,18 @@ def spoilerClicked(event):
     else:
         spoilerRemove()
 
+def rimsAdd():
+    global miataRimsPhoto, rimsIMGID
+    miataRimsIMG = Image.open("miataRims.png")
+    miataRimsIMG = miataRimsIMG.resize((550, 135), Image.Resampling.LANCZOS)
+    miataRimsPhoto = ImageTk.PhotoImage(miataRimsIMG)
+
+    rimsIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataRimsPhoto)
+    canvasMiataCustom.move(rimsIMGID, 0, 69)
+
+def rimsRemove():
+    global miataRimsPhoto, rimsIMGID
+    canvasMiataCustom.delete(rimsIMGID)
 
 def skirtPackAdd():
     pass ## add skirt pack overlay
@@ -308,12 +316,6 @@ def skirtPackClicked(event):
         skirtPackAdd()
     else:
         skirtPackRemove()
-
-def rimsAdd():
-    pass ## add rims overlay
-
-def rimsRemove():
-    pass ## remove rims overlay
 
 def rimsClicked(event):
     global clickedB3
