@@ -18,10 +18,11 @@ clickedB2S = 0
 clickedB3S = 0
 clickedB4S = 0
 rims = False
-rimnoskirt = False
 spoiler = False
 eyes = False
 skirt = False
+sp = False
+spr = False
 
 
 # --------- Center Window On Screen ----------
@@ -35,8 +36,6 @@ y = int((screen_height / 2) - (height / 2))
 window.geometry(f"{width}x{height}+{x}+{y}")
 
 # window.geometry("1000x650")
-
-# -------------------------------------------
 
 # swap screen #
 def show_frame(frame):
@@ -268,6 +267,7 @@ colourText = canvasMCB4.create_text(0, 0, text="Tired Eyes", font=("Courier New"
 def spoilerAdd():
     global miataSpoilerPhoto, spoilerIMGID, spoiler
     spoiler = True
+    print("Spoiler Set: " + str(spoiler))
     miataSpoilerIMG = Image.open("spoilerMiata.png")
     miataSpoilerIMG = miataSpoilerIMG.resize((250, 165), Image.Resampling.LANCZOS)
     miataSpoilerPhoto = ImageTk.PhotoImage(miataSpoilerIMG)
@@ -276,6 +276,7 @@ def spoilerAdd():
 def spoilerRemove():
     global miataSpoilerPhoto, spoilerIMGID, spoiler
     spoiler = False
+    print("Spoiler Set: " + str(spoiler))
     canvasMiataCustom.delete(spoilerIMGID)
 
 def spoilerClicked(event):
@@ -294,6 +295,7 @@ def spoilerClicked(event):
 def rimsAdd():
     global miataRimsPhoto, rimsIMGID, rims
     rims = True
+    print("Rims Set: " + str(rims))
     miataRimsIMG = Image.open("miataRims.png")
     miataRimsIMG = miataRimsIMG.resize((550, 135), Image.Resampling.LANCZOS)
     miataRimsPhoto = ImageTk.PhotoImage(miataRimsIMG)
@@ -304,10 +306,11 @@ def rimsAdd():
 def rimsRemove():
     global miataRimsPhoto, rimsIMGID, rims
     rims = False
+    print("Rims Set: " + str(rims))
     canvasMiataCustom.delete(rimsIMGID)
 
 def skirtPackAdd():
-    global miataspPhoto, spIMGID, miatasprPhoto, sprIMGID, rims, skirt
+    global miataspPhoto, spIMGID, miatasprPhoto, sprIMGID, rims, skirt, sp, spr
     skirt = True
     if rims == False:
         miataspIMG = Image.open("miataSkirtPack.png")
@@ -316,6 +319,8 @@ def skirtPackAdd():
 
         spIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataspPhoto)
         canvasMiataCustom.move(spIMGID, -6, 80)
+        sp = True
+        print("Sp Set: " + str(sp))
     else:
         miatasprIMG = Image.open("miataSkirtPackRims.png")
         miatasprIMG = miatasprIMG.resize((550, 135), Image.Resampling.LANCZOS)
@@ -323,14 +328,20 @@ def skirtPackAdd():
 
         sprIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miatasprPhoto)
         canvasMiataCustom.move(sprIMGID, 0, 69)
+        spr = True
+        print("Spr Set: " + str(sp))
 
 def skirtPackRemove():
-    global spIMGID, miataspIMG, miatasprIMG, spIMGID, skirt
+    global spIMGID, miataspIMG, miatasprIMG, spIMGID, skirt, sp, spr
     skirt = False
     if rims == False:
+        sp = False
+        print("Sp Set: " + str(sp))
         canvasMiataCustom.delete(spIMGID)
     else:
         canvasMiataCustom.delete(sprIMGID)
+        spr = False
+        print("Spr Set: " + str(spr))
 
 
 def skirtPackClicked(event):
@@ -358,10 +369,12 @@ def rimsClicked(event):
         rimsAdd()
     else:
         rimsRemove()
+    checkOverlap()
 
 def colourAdd():
     global miataEyesPhoto, eyesIMGID, eyes
     eyes = True
+    print("Eyes Set: " + str(eyes))
     miataEyesIMG = Image.open("miataEyes.png")
     miataEyesIMG = miataEyesIMG.resize((189, 38), Image.Resampling.LANCZOS)
     miataEyesPhoto = ImageTk.PhotoImage(miataEyesIMG)
@@ -372,6 +385,7 @@ def colourAdd():
 def colourRemove():
     global miataEyesPhoto, eyesIMGID, eyes
     eyes = False
+    print("Eyes Set: " + str(eyes))
     canvasMiataCustom.delete(eyesIMGID)
 
 def colourClicked(event):
@@ -510,7 +524,20 @@ canvasSCB4.place(relx=0.875, rely=0.85, anchor="center")
 
 # ------------  S2k Costume Close  ------------
 
-# --------------------------------------------
+# ----------------- OVERLAP CHECK/FIX -------------------
+
+def checkOverlap():
+    global rims, spoiler, eyes, skirt, spIMGID, sprIMGID, rimsIMGID
+    if sp == True and rims == True:
+        canvasMiataCustom.delete(spIMGID)
+        skirtPackAdd()
+    if sp == False and rims == True:
+        canvasMiataCustom.delete(spIMGID)
+    if spr == True and rims == False:
+        canvasMiataCustom.delete(sprIMGID)
+        skirtPackAdd()
+
+# -------------------------------------------------------
 
 # ----------------- End Items -----------------
 
