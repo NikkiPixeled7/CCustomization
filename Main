@@ -17,6 +17,12 @@ clickedB1S = 0
 clickedB2S = 0
 clickedB3S = 0
 clickedB4S = 0
+rims = False
+rimnoskirt = False
+spoiler = False
+eyes = False
+skirt = False
+
 
 # --------- Center Window On Screen ----------
 
@@ -260,16 +266,16 @@ rimsText = canvasMCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "b
 colourText = canvasMCB4.create_text(0, 0, text="Tired Eyes", font=("Courier New", 15, "bold"), fill='white')
 
 def spoilerAdd():
-    global miataSpoilerPhoto, spoilerIMGID
+    global miataSpoilerPhoto, spoilerIMGID, spoiler
+    spoiler = True
     miataSpoilerIMG = Image.open("spoilerMiata.png")
     miataSpoilerIMG = miataSpoilerIMG.resize((250, 165), Image.Resampling.LANCZOS)
     miataSpoilerPhoto = ImageTk.PhotoImage(miataSpoilerIMG)
     spoilerIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataSpoilerPhoto)
     canvasMiataCustom.move(spoilerIMGID, 175, -68)
-
-    canvasMiataCustom.image = miataImage2
 def spoilerRemove():
-    global miataSpoilerPhoto, spoilerIMGID
+    global miataSpoilerPhoto, spoilerIMGID, spoiler
+    spoiler = False
     canvasMiataCustom.delete(spoilerIMGID)
 
 def spoilerClicked(event):
@@ -286,7 +292,8 @@ def spoilerClicked(event):
         spoilerRemove()
 
 def rimsAdd():
-    global miataRimsPhoto, rimsIMGID
+    global miataRimsPhoto, rimsIMGID, rims
+    rims = True
     miataRimsIMG = Image.open("miataRims.png")
     miataRimsIMG = miataRimsIMG.resize((550, 135), Image.Resampling.LANCZOS)
     miataRimsPhoto = ImageTk.PhotoImage(miataRimsIMG)
@@ -295,14 +302,36 @@ def rimsAdd():
     canvasMiataCustom.move(rimsIMGID, 0, 69)
 
 def rimsRemove():
-    global miataRimsPhoto, rimsIMGID
+    global miataRimsPhoto, rimsIMGID, rims
+    rims = False
     canvasMiataCustom.delete(rimsIMGID)
 
 def skirtPackAdd():
-    pass ## add skirt pack overlay
+    global miataspPhoto, spIMGID, miatasprPhoto, sprIMGID, rims, skirt
+    skirt = True
+    if rims == False:
+        miataspIMG = Image.open("miataSkirtPack.png")
+        miataspIMG = miataspIMG.resize((520, 115), Image.Resampling.LANCZOS)
+        miataspPhoto = ImageTk.PhotoImage(miataspIMG)
+
+        spIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataspPhoto)
+        canvasMiataCustom.move(spIMGID, -6, 80)
+    else:
+        miatasprIMG = Image.open("miataSkirtPackRims.png")
+        miatasprIMG = miatasprIMG.resize((550, 135), Image.Resampling.LANCZOS)
+        miatasprPhoto = ImageTk.PhotoImage(miatasprIMG)
+
+        sprIMGID = canvasMiataCustom.create_image(375, 170, anchor='center', image=miatasprPhoto)
+        canvasMiataCustom.move(sprIMGID, 0, 69)
 
 def skirtPackRemove():
-    pass ## remove skirt pack overlay
+    global spIMGID, miataspIMG, miatasprIMG, spIMGID, skirt
+    skirt = False
+    if rims == False:
+        canvasMiataCustom.delete(spIMGID)
+    else:
+        canvasMiataCustom.delete(sprIMGID)
+
 
 def skirtPackClicked(event):
     global clickedB2
@@ -329,8 +358,10 @@ def rimsClicked(event):
         rimsAdd()
     else:
         rimsRemove()
+
 def colourAdd():
-    global miataEyesPhoto, eyesIMGID
+    global miataEyesPhoto, eyesIMGID, eyes
+    eyes = True
     miataEyesIMG = Image.open("miataEyes.png")
     miataEyesIMG = miataEyesIMG.resize((189, 38), Image.Resampling.LANCZOS)
     miataEyesPhoto = ImageTk.PhotoImage(miataEyesIMG)
@@ -339,7 +370,8 @@ def colourAdd():
     canvasMiataCustom.move(eyesIMGID, -134, -14)
 
 def colourRemove():
-    global miataEyesPhoto, eyesIMGID
+    global miataEyesPhoto, eyesIMGID, eyes
+    eyes = False
     canvasMiataCustom.delete(eyesIMGID)
 
 def colourClicked(event):
