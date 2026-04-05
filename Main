@@ -434,7 +434,7 @@ canvasSCB4 = Canvas(canvasS2kCustom, width='150', height='65', bg='#178B26', hig
 spoilerTextS = canvasSCB1.create_text(0, 0, text="Spoiler", font=("Courier New", 25, "bold"), fill='white')
 skirtTextS = canvasSCB2.create_text(0, 0, text="Skirt Pack", font=("Courier New", 17, "bold"), fill='white')
 rimsTextS = canvasSCB3.create_text(0, 0, text="Rims", font=("Courier New", 25, "bold"), fill='white')
-colourTextS = canvasSCB4.create_text(0, 0, text="Unchosen", font=("Courier New", 25, "bold"), fill='white')
+colourTextS = canvasSCB4.create_text(0, 0, text="Hood Design", font=("Courier New", 15, "bold"), fill='white')
 
 def spoilerAddS():
     global s2kSpoilerPhoto, spoilers2kIMGID, spoilers2k
@@ -486,22 +486,22 @@ def skirtPackAddS():
     skirts2k = True
     if rimss2k == False:
         s2kspIMG = Image.open("s2kSkirtPack.png")
-        s2kspIMG = s2kspIMG.resize((520, 115), Image.Resampling.LANCZOS)
+        s2kspIMG = s2kspIMG.resize((550, 390), Image.Resampling.LANCZOS)
         s2kspPhoto = ImageTk.PhotoImage(s2kspIMG)
 
         s2kspIMGID = canvasS2kCustom.create_image(375, 170, anchor='center', image=s2kspPhoto)
-        canvasS2kCustom.move(s2kspIMGID, -6, 80)
+        canvasS2kCustom.move(s2kspIMGID, 0, 15)
         sps2k = True
         print("Sp Set: " + str(sps2k))
     else:
         s2ksprIMG = Image.open("s2kSkirtPackRims.png")
-        s2ksprIMG = s2ksprIMG.resize((550, 135), Image.Resampling.LANCZOS)
+        s2ksprIMG = s2ksprIMG.resize((555, 390), Image.Resampling.LANCZOS)
         s2ksprPhoto = ImageTk.PhotoImage(s2ksprIMG)
 
         s2ksprIMGID = canvasS2kCustom.create_image(375, 170, anchor='center', image=s2ksprPhoto)
-        canvasS2kCustom.move(s2ksprIMGID, 0, 69)
+        canvasS2kCustom.move(s2ksprIMGID, 1, 15)
         sprs2k = True
-        print("Spr Set: " + str(sps2k))
+        print("Spr Set: " + str(sprs2k))
 
 def skirtPackRemoveS():
     global s2kspIMGID, s2kspIMG, s2ksprIMG, s2ksprIMGID, skirts2k, sps2k, sprs2k
@@ -548,11 +548,11 @@ def colourAddS():
     hood = True
     print("Hood Set: " + str(hood))
     s2kHoodIMG = Image.open("s2kHood.png")
-    s2kHoodIMG = s2kHoodIMG.resize((189, 38), Image.Resampling.LANCZOS)
+    s2kHoodIMG = s2kHoodIMG.resize((550, 390), Image.Resampling.LANCZOS)
     s2kHoodPhoto = ImageTk.PhotoImage(s2kHoodIMG)
 
     s2khoodIMGID = canvasS2kCustom.create_image(375, 170, anchor='center', image=s2kHoodPhoto)
-    canvasS2kCustom.move(s2khoodIMGID, -134, -14)
+    canvasS2kCustom.move(s2khoodIMGID, 0, 15)
 
 def colourRemoveS():
     global s2kHoodPhoto, s2khoodIMGID, hoods2k
@@ -610,6 +610,7 @@ def checkOverlapS():
         skirtPackAddS()
     if sps2k == False and rimss2k == True:
         canvasS2kCustom.delete(s2kspIMGID)
+        rimsAddS()
     if sprs2k == True and rimss2k == False:
         canvasS2kCustom.delete(s2ksprIMGID)
         skirtPackAddS()
