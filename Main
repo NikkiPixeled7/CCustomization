@@ -29,6 +29,7 @@ hoods2k = False
 skirts2k = False
 sps2k = False
 sprs2k = False
+skirts2k = False
 
 
 # --------- Center Window On Screen ----------
@@ -152,6 +153,9 @@ def goMiataScreen(event=None):
 def goS2kScreen(event=None):
     animateButton(canvasS2kGreen, "#178B26", "#0f5f1f")
     canvasS2kGreen.after(350, lambda: (hideMainCanvases(), show_frame(s2kScreen), redBackArrow(s2kScreen, 20, 20)))
+
+nameLabel = Label(mainGUI, text="-Nick.C Apr/2026", font=("Courier New", 10, "italic", "bold"), fg='white', bg='#1e1e1e')
+nameLabel.place(relx=.99, rely=.99, anchor="se")
 
 # ------------ CarOptions ------------
 
@@ -593,27 +597,76 @@ canvasSCB4.place(relx=0.875, rely=0.85, anchor="center")
 # ----------------- OVERLAP CHECK/FIX -------------------
 
 def checkOverlap():
-    global rims, spoiler, eyes, skirt, spIMGID, sprIMGID, rimsIMGID
-    if sp == True and rims == True:
+    global rims, sp, spr, skirt
+
+    if not skirt:
+        return
+
+    try:
         canvasMiataCustom.delete(spIMGID)
-        skirtPackAdd()
-    if sp == False and rims == True:
-        canvasMiataCustom.delete(spIMGID)
-    if spr == True and rims == False:
+    except:
+        pass
+
+    try:
         canvasMiataCustom.delete(sprIMGID)
-        skirtPackAdd()
+    except:
+        pass
+
+    if rims:
+        miatasprIMG = Image.open("miataSkirtPackRims.png")
+        miatasprIMG = miatasprIMG.resize((550, 135), Image.Resampling.LANCZOS)
+        miatasprPhoto = ImageTk.PhotoImage(miatasprIMG)
+
+        globals()['miatasprPhoto'] = miatasprPhoto
+        globals()['sprIMGID'] = canvasMiataCustom.create_image(375, 170, anchor='center', image=miatasprPhoto)
+        canvasMiataCustom.move(sprIMGID, 0, 69)
+
+    else:
+        miataspIMG = Image.open("miataSkirtPack.png")
+        miataspIMG = miataspIMG.resize((520, 115), Image.Resampling.LANCZOS)
+        miataspPhoto = ImageTk.PhotoImage(miataspIMG)
+
+        globals()['miataspPhoto'] = miataspPhoto
+        globals()['spIMGID'] = canvasMiataCustom.create_image(375, 170, anchor='center', image=miataspPhoto)
+        canvasMiataCustom.move(spIMGID, -6, 80)
 
 def checkOverlapS():
-    global rimss2k, skirts2k, s2kspIMGID, s2ksprIMGID, s2krimsIMGID
-    if sps2k == True and rimss2k == True:
+    global rimss2k, skirts2k
+
+    if not skirts2k:
+        return
+
+    try:
         canvasS2kCustom.delete(s2kspIMGID)
-        skirtPackAddS()
-    if sps2k == False and rimss2k == True:
-        canvasS2kCustom.delete(s2kspIMGID)
-        rimsAddS()
-    if sprs2k == True and rimss2k == False:
+    except:
+        pass
+
+    try:
         canvasS2kCustom.delete(s2ksprIMGID)
-        skirtPackAddS()
+    except:
+        pass
+
+    if rimss2k:
+        s2ksprIMG = Image.open("s2kSkirtPackRims.png")
+        s2ksprIMG = s2ksprIMG.resize((555, 390), Image.Resampling.LANCZOS)
+        s2ksprPhoto = ImageTk.PhotoImage(s2ksprIMG)
+
+        globals()['s2ksprPhoto'] = s2ksprPhoto
+        globals()['s2ksprIMGID'] = canvasS2kCustom.create_image(
+            375, 170, anchor='center', image=s2ksprPhoto
+        )
+        canvasS2kCustom.move(s2ksprIMGID, 1, 15)
+
+    else:
+        s2kspIMG = Image.open("s2kSkirtPack.png")
+        s2kspIMG = s2kspIMG.resize((550, 390), Image.Resampling.LANCZOS)
+        s2kspPhoto = ImageTk.PhotoImage(s2kspIMG)
+
+        globals()['s2kspPhoto'] = s2kspPhoto
+        globals()['s2kspIMGID'] = canvasS2kCustom.create_image(
+            375, 170, anchor='center', image=s2kspPhoto
+        )
+        canvasS2kCustom.move(s2kspIMGID, 0, 15)
 
 # -------------------------------------------------------
 
