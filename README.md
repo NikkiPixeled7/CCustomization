@@ -1,6 +1,7 @@
 # CCustomization
 Car Customization For Tkinter Assignment
 
-My plans for this assignment is to make a couple car options and let them have customizations. Make a couple cars to choose from.
+All you need to do is download and import all the images into pycharm, then copy the code in the "Main" tab and paste into pycharm then boom.
 
-Customizations like spoiler, skirt pack, bumper del, camber, rim change, etc.
+Req:
+-Must have PIL library installed. Simply go to pycharm terminal and type "pip install pillow"
