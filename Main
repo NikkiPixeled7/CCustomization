@@ -468,12 +468,12 @@ def rimsAddS():
     global s2kRimsPhoto, rimss2kIMGID, rimss2k
     rimss2k = True
     print("Rims Set: " + str(rimss2k))
-    s2kRimsIMG = Image.open("miataS2k.png")
-    s2kRimsIMG = s2kRimsIMG.resize((550, 135), Image.Resampling.LANCZOS)
+    s2kRimsIMG = Image.open("s2kRims.png")
+    s2kRimsIMG = s2kRimsIMG.resize((575, 395), Image.Resampling.LANCZOS)
     s2kRimsPhoto = ImageTk.PhotoImage(s2kRimsIMG)
 
     rimss2kIMGID = canvasS2kCustom.create_image(375, 170, anchor='center', image=s2kRimsPhoto)
-    canvasS2kCustom.move(rimss2kIMGID, 0, 69)
+    canvasS2kCustom.move(rimss2kIMGID, -10, 15)
 
 def rimsRemoveS():
     global s2kRimsPhoto, rimss2kIMGID, rimss2k
